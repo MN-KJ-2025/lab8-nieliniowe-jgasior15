@@ -103,7 +103,21 @@ def bisection(
             - Liczba wykonanych iteracji.
         Jeżeli dane wejściowe są niepoprawne funkcja zwraca `None`.
     """
-    pass
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)) or not isinstance(f, Callable) or not isinstance(epsilon, float) or not isinstance(max_iter, int):
+        return None
+
+    for i in range(max_iter):
+        
+        c = (a+b)/2
+        if abs(f(c)) < epsilon:
+            return (c, i+1)
+        if np.sign(f(c)) == np.sign(f(a)):
+            a = c
+        else:
+            b = c
+    
+    return (c, i+1)
+
 
 
 def secant(
