@@ -144,7 +144,31 @@ def secant(
             - Liczba wykonanych iteracji.
         Jeżeli dane wejściowe są niepoprawne funkcja zwraca `None`.
     """
-    pass
+    if not isinstance(a, (int,float)):
+        return None
+    if not isinstance(b, (int,float)):
+        return None
+    if not isinstance(f, Callable):
+        return None
+    if not isinstance(epsilon, float):
+        return None
+    if not isinstance(max_iters, int):
+        return None
+
+    for i in range(max_iters):
+        
+        c = b - f(b)*(b-a)/(f(b)-f(a))
+
+        if np.sign(f(a)) == np.sign(f(c)):
+            a = c
+        else:
+            b = c
+
+        if abs(f(c)) < epsilon:
+            return c, i+1
+    
+    return (c, i+1)
+
 
 
 def difference_quotient(
@@ -164,7 +188,8 @@ def difference_quotient(
         (float): Wartość ilorazu różnicowego.
         Jeżeli dane wejściowe są niepoprawne funkcja zwraca `None`.
     """
-    pass
+    return (f(x+h)-f(x))/h
+
 
 
 def newton(
@@ -196,4 +221,28 @@ def newton(
             - Liczba wykonanych iteracji.
         Jeżeli dane wejściowe są niepoprawne funkcja zwraca `None`.
     """
-    pass
+    if not isinstance(a, (int,float)):
+        return None
+    if not isinstance(b, (int,float)):
+        return None
+    if not isinstance(f, Callable):
+        return None
+    if not isinstance(epsilon, float):
+        return None
+    if not isinstance(max_iter, int):
+        return None
+
+    for i in range(max_iter):
+        
+        c = b - f(b)/df(b)
+
+        if np.sign(f(a)) == np.sign(f(c)):
+            a = c
+        else:
+            b = c
+
+        if abs(f(c)) < epsilon:
+            return c, i+1
+    
+    return (c, i+1)
+
